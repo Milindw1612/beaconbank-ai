@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enterprise AI Roadmap — Beacon Bank</title>
+<style>
+  :root {
+    --navy: #4A1420; --bg: #3B0F1A; --surface: #4A1420; --surface2: #551729;
+    --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.12);
+    --text: #E2E8F0; --muted: #64748B; --mid: #94A3B8;
+    --gold: #F59E0B; --gold-dim: #D97706; --teal: #0D9488; --purple: #A78BFA;
+    --green: #34D399; --red: #F87171; --amber: #FBBF24; --blue: #2D6BE4; --neon: #39FF14;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 14px; }
+
+  nav { position: sticky; top: 0; z-index: 1000; background: rgba(59,15,26,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0 10px; display: flex; align-items: center; height: 64px; }
+  .nav-inner { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .nav-logo { font-size: 19px; font-weight: 800; letter-spacing: -0.3px; color: var(--neon); text-shadow: 0 0 6px rgba(57,255,20,0.85), 0 0 14px rgba(57,255,20,0.6), 0 0 26px rgba(57,255,20,0.35); flex-shrink: 0; text-decoration: none; }
+  .nav-links { display: flex; gap: 4px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a { font-size: 9.5px; font-weight: 500; color: var(--muted); text-decoration: none; transition: color .2s; white-space: nowrap; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a.active { color: var(--gold); font-weight: 700; }
+  .nav-cta { background: linear-gradient(135deg,#D97706,#F59E0B); color:#000 !important; font-weight:700 !important; padding: 5px 14px; border-radius: 6px; }
+  .nav-cta.brief { background: linear-gradient(135deg,#0D9488,#34D399); }
+  @media (max-width: 900px) { .nav-links { display: none; } }
+
+  .neon-brand { color: var(--neon); text-shadow: 0 0 6px rgba(57,255,20,0.85), 0 0 14px rgba(57,255,20,0.65), 0 0 28px rgba(57,255,20,0.4); }
+
+  .page-header { background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(190,30,60,0.20) 0%, transparent 60%), linear-gradient(135deg, #4A1420 0%, #3B0F1A 100%); border-bottom: 1px solid var(--border2); padding: 40px 48px 32px; }
+  .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: 28px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 6px; }
+  .page-header p { font-size: 13px; color: var(--muted); max-width: 760px; line-height: 1.7; }
+
+  main { padding: 32px 48px 56px; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); margin-top: 32px; }
+  .section-label:first-child { margin-top: 0; }
+
+  .overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr)); gap: 14px; margin-bottom: 12px; }
+  .ov-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .ov-card h3 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+  .ov-card p { font-size: 12px; color: var(--mid); line-height: 1.6; }
+
+  .note-box { background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-left: 3px solid var(--gold-dim); border-radius: 6px; padding: 14px 18px; font-size: 12.5px; color: var(--mid); margin-bottom: 24px; line-height: 1.75; }
+  .note-box strong { color: var(--text); }
+
+  .horizon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 14px; margin-bottom: 8px; }
+  .horizon-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; border-top: 3px solid var(--gold-dim); }
+  .horizon-card .hz { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .horizon-card h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .horizon-card p { font-size: 11.5px; color: var(--mid); line-height: 1.6; }
+
+  .capstone { background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(167,139,250,0.06)); border: 1px solid rgba(245,158,11,0.3); border-radius: 14px; padding: 28px 32px; margin-top: 8px; }
+  .capstone .eyebrow2 { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .capstone h3 { font-family: Georgia, serif; font-size: 20px; color: #fff; margin-bottom: 10px; }
+  .capstone p { font-size: 13px; color: var(--mid); line-height: 1.75; margin-bottom: 6px; }
+
+  .pillar-chip-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .pillar-chip { font-size: 11px; font-weight: 700; padding: 6px 14px; border-radius: 20px; background: rgba(255,255,255,0.04); border: 1px solid var(--border2); color: var(--mid); }
+
+  footer { background: #2A0A12; padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.05); flex-wrap: wrap; gap: 8px; }
+  footer p { font-size: 12px; color: #94765B; }
+  footer a { color: #94765B; text-decoration: none; transition: color .2s; }
+  footer a:hover { color: var(--gold); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .page-header { padding: 24px 20px; }
+    main { padding: 20px; }
+    footer { padding: 20px; flex-direction: column; align-items: flex-start; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Beacon Bank</a>
+    <div class="nav-links">
+      <a href="board-brief.html" class="nav-cta brief">Board Brief</a>
+      <a href="ai-mindmap.html">AI-Readiness</a>
+      <a href="index.html">Use Cases</a>
+      <a href="roi.html">ROI</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="helicopter.html">Helicopter View</a>
+      <a href="governance.html">Governance</a>
+      <a href="compliance.html">Compliance</a>
+      <a href="roadmap.html" class="active">AI Roadmap</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="contact.html" class="nav-cta">Contact Me</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="eyebrow">Enterprise AI Strategy · Office of the Chief AI Officer</div>
+  <h1>Enterprise AI Roadmap — Day 0 to Year 3</h1>
+  <p>How Beacon Bank scales from 3 proven flagship pilots into a bank-wide, governed AI operating model — phased across the first 90 days, 6 months, 12 months, and out to 3 years. This is the headline shape; the detailed operating model, workforce plan, and regulatory mapping are walked through live.</p>
+</div>
+
+<main>
+
+  <div class="section-label">Industry Context — Where Indian Banking Stands on AI</div>
+  <div class="overview-grid">
+    <div class="ov-card"><h3 style="color:var(--gold)">Large Private Banks</h3><p>Several have publicly discussed GenAI/AI initiatives over the past couple of years, mostly in customer service, fraud detection, and internal productivity — largely as point solutions, not a governed enterprise operating model.</p></div>
+    <div class="ov-card"><h3 style="color:var(--purple)">Public Sector Banks</h3><p>Generally earlier-stage, often piloting through industry-coordinated or vendor-led initiatives rather than in-house agentic builds.</p></div>
+    <div class="ov-card"><h3 style="color:var(--teal)">RBI's Own Framing</h3><p>RBI's own committee reporting treats the sector as early-innings overall — a call to build responsible AI capability now, not a claim that any bank has already solved it.</p></div>
+    <div class="ov-card"><h3 style="color:var(--green)">The Opportunity Here</h3><p>Most of the sector still sits at "one-off pilot." Moving to a governed, enterprise-scale operating model is a genuine differentiator, not catch-up.</p></div>
+  </div>
+  <p style="font-size:11px;color:var(--muted);margin-bottom:0">Directional industry framing for Board context, not a competitive-intelligence claim about any named institution's internal capability.</p>
+
+  <div class="section-label">Horizon Themes</div>
+  <div class="horizon-grid">
+    <div class="horizon-card"><div class="hz">0–3 Months</div><h4>Foundation</h4><p>Governance chartered, policy published, flagship pilots in build. The bank has a named AI accountability structure for the first time.</p></div>
+    <div class="horizon-card"><div class="hz">3–6 Months</div><h4>First Production, First Assurance</h4><p>The first flagship pilot goes live. Independent model validation and the first internal audit of AI governance both stand up in parallel.</p></div>
+    <div class="horizon-card"><div class="hz">6–12 Months</div><h4>Full Pilot Wave + Readiness</h4><p>All flagship pilots in production. A 3-lines-of-defense model is operational. A regulatory-readiness dry-run is completed before scaling further.</p></div>
+    <div class="horizon-card"><div class="hz">Year 2</div><h4>Enterprise Scale-Up</h4><p>A second wave of use cases across new business lines goes live on the same governed platform. The AI CoE becomes a self-serve capability, not a project team.</p></div>
+    <div class="horizon-card"><div class="hz">Year 3</div><h4>Enterprise AI Maturity</h4><p>Every major business line runs at least one governed agentic system. External certification is targeted. Governance, audit and reporting are business-as-usual.</p></div>
+  </div>
+
+  <div class="section-label">Governance Pillars Covered</div>
+  <div class="pillar-chip-grid">
+    <span class="pillar-chip">Governance &amp; Operating Model</span>
+    <span class="pillar-chip">Workforce &amp; Change</span>
+    <span class="pillar-chip">Responsible AI &amp; Ethics</span>
+    <span class="pillar-chip">Risk &amp; Model Validation</span>
+    <span class="pillar-chip">Audit &amp; Assurance</span>
+    <span class="pillar-chip">Data Privacy (DPDP)</span>
+    <span class="pillar-chip">AI Security</span>
+    <span class="pillar-chip">Use-Case Portfolio</span>
+  </div>
+  <div class="note-box">Each pillar has a detailed, horizon-by-horizon plan — roles and responsibilities, specific milestones, and a full RBI/regulatory mapping — walked through live in a technical deep-dive rather than published here.</div>
+
+  <div class="capstone">
+    <div class="eyebrow2">Three-Year Vision</div>
+    <h3>From a few pilots to an enterprise AI Factory</h3>
+    <p>By Year 3, Beacon Bank runs agentic AI across every major business line — lending, fraud, collections, and more — on one governed platform, not a collection of one-off projects.</p>
+    <p>Every system carries a documented risk tier, an independent model validation record, and a traceable audit trail from day one — not retrofitted after a regulator asks. Governance keeps pace with scale: a 3-lines-of-defense AI risk model, quarterly Board reporting, and an annual Responsible AI transparency report are business-as-usual, not a one-time exercise.</p>
+    <p>The target external validation point is an <strong style="color:#fff">AI management system certification</strong>, benchmarked internally against RBI's FREE-AI Framework — proof the bank's AI program is governed to a standard a regulator, an auditor, and a customer can all independently verify.</p>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2026 <span class="neon-brand" style="text-shadow:none">Beacon Bank</span> · Agentic AI Strategy Brief</p>
+  <p>Built by <a href="https://milindw1612.github.io/" target="_blank">Milind W · Global Delivery Head &amp; Agentic AI Builder</a></p>
+</footer>
+
+</body>
+</html>
